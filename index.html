@@ -490,25 +490,33 @@
     .image-slot {
       position: relative;
       aspect-ratio: 4 / 3;
-      overflow: visible;
+      overflow: hidden;
       background: transparent;
     }
     .image-slot img {
       position: absolute;
       z-index: 2;
-      top: -8%;
-      right: -12%;
-      width: 116%;
+      top: -10%;
+      right: -28%;
+      width: 124%;
       height: auto;
       max-width: none;
       filter: drop-shadow(0 20px 15px rgba(63, 23, 14, .22));
       transform: rotate(-8deg);
       transform-origin: 72% 54%;
-      transition: transform .6s cubic-bezier(.2,.7,.2,1), filter .6s ease;
+      animation: pizza-levitate 5.2s ease-in-out infinite;
+      transition: filter .35s ease;
     }
-    .menu-card:nth-child(even) .image-slot img { right: -9%; transform: rotate(7deg); transform-origin: 32% 56%; }
-    .menu-card:hover .image-slot img { filter: drop-shadow(0 28px 20px rgba(63, 23, 14, .28)); transform: rotate(-4deg) scale(1.06); }
-    .menu-card:nth-child(even):hover .image-slot img { transform: rotate(3deg) scale(1.06); }
+    .menu-card:nth-child(2) .image-slot img { animation-delay: -.8s; }
+    .menu-card:nth-child(3) .image-slot img { animation-delay: -1.6s; }
+    .menu-card:nth-child(4) .image-slot img { animation-delay: -2.4s; }
+    .menu-card:nth-child(5) .image-slot img { animation-delay: -3.2s; }
+    .menu-card:nth-child(6) .image-slot img { animation-delay: -4s; }
+    @keyframes pizza-levitate {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(-8deg); }
+      50% { transform: translate3d(-7px, -11px, 0) rotate(-8deg); }
+    }
+    .menu-card:hover .image-slot img { animation-play-state: paused; filter: drop-shadow(0 28px 20px rgba(63, 23, 14, .28)); transform: translate3d(-7px, -11px, 0) rotate(-8deg) scale(1.045); }
     .card-content { padding: 14px 24px 26px; }
     .card-meta { display: flex; margin-bottom: 10px; align-items: center; justify-content: space-between; gap: 12px; }
     .card-category { color: var(--orange-700); font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
