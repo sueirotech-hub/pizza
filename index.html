@@ -364,7 +364,9 @@
 
     /* ───────── NAVEGAÇÃO FLUTUANTE (aparece ao rolar) ───────── */
     .float-nav {
+      --scroll-progress: 0;
       position: fixed;
+      isolation: isolate;
       z-index: 60;
       top: 14px;
       left: 50%;
@@ -372,7 +374,7 @@
       align-items: center;
       gap: clamp(20px, 3.4vw, 48px);
       padding: 8px 8px 8px 26px;
-      border: 1px solid rgba(63, 23, 14, .08);
+      border: 0;
       border-radius: 999px;
       background: rgba(255, 247, 234, .82);
       box-shadow: 0 12px 40px rgba(63, 23, 14, .16);
@@ -383,6 +385,20 @@
       transform: translate(-50%, -140%);
       transition: transform .55s cubic-bezier(.2,.7,.2,1), opacity .4s ease, visibility .4s;
     }
+    .float-nav::before {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      inset: -2px;
+      padding: 2px;
+      border-radius: inherit;
+      background: conic-gradient(from -90deg, var(--wine) calc(var(--scroll-progress) * 1turn), rgba(63, 23, 14, .13) 0);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .float-nav > * { position: relative; z-index: 3; }
     .float-nav.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
     .float-nav .brand { font-size: 1.5rem; }
     .float-nav nav { display: flex; gap: clamp(18px, 2.2vw, 32px); }
@@ -748,7 +764,7 @@
     <svg class="food-icon" style="--x:93%;--size:46px;--duration:40s;--delay:-34s;--drift:-50px"><use href="#icon-pizza"/></svg>
   </div>
 
-  <div class="float-nav" role="navigation" aria-label="Navegação rápida"><a class="brand" href="#inicio">Pizzaría</a><nav><a href="#contato">Contato</a><a href="#cardapio">Cardápio</a></nav><a class="button button-primary" href="#cardapio">Ver cardápio</a></div>
+  <div class="float-nav" role="navigation" aria-label="Navegação rápida"><a class="brand" href="#inicio">Pizzaría</a><nav><a href="#contato">Contato</a></nav><a class="button button-primary" href="#cardapio">Ver cardápio</a></div>
 
   <main>
     <section class="hero" id="inicio" aria-labelledby="hero-title">
@@ -757,7 +773,7 @@
       <div class="hero-panel">
         <header class="site-header">
           <a class="brand" href="#inicio" aria-label="Pizzaría Amazing - início">Pizzaría</a>
-          <nav class="desktop-nav" id="site-nav" aria-label="Navegação principal"><a href="#contato">Contato</a><a href="#cardapio">Cardápio</a></nav>
+          <nav class="desktop-nav" id="site-nav" aria-label="Navegação principal"><a href="#contato">Contato</a></nav>
           <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
         </header>
         <p class="hero-eyebrow">Massa lenta · forno quente</p>
@@ -951,6 +967,9 @@
     function updateFloatNav() {
       navTicking = false;
       floatNav.classList.toggle('is-visible', window.scrollY > heroSection.offsetHeight * 0.62);
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+      floatNav.style.setProperty('--scroll-progress', progress.toFixed(4));
     }
     window.addEventListener('scroll', () => {
       if (!navTicking) { navTicking = true; requestAnimationFrame(updateFloatNav); }
