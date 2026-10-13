@@ -489,35 +489,26 @@
     /* Fotografias reais do cardápio. */
     .image-slot {
       position: relative;
-      display: grid;
       aspect-ratio: 4 / 3;
-      margin: 10px;
-      place-items: center;
-      overflow: hidden;
-      border-radius: calc(var(--radius-lg) - 8px);
-      color: rgba(255, 244, 226, .92);
-      background:
-        radial-gradient(circle at 28% 18%, rgba(255,228,184,.7), transparent 58%),
-        linear-gradient(140deg, #f6a65a 0%, #e8672a 100%);
+      overflow: visible;
+      background: transparent;
     }
-    .image-slot[data-tone="especial"] {
-      background:
-        radial-gradient(circle at 28% 18%, rgba(255,190,120,.55), transparent 58%),
-        linear-gradient(140deg, #c4521c 0%, #7d2a0f 100%);
+    .image-slot img {
+      position: absolute;
+      z-index: 2;
+      top: -8%;
+      right: -12%;
+      width: 116%;
+      height: auto;
+      max-width: none;
+      filter: drop-shadow(0 20px 15px rgba(63, 23, 14, .22));
+      transform: rotate(-8deg);
+      transform-origin: 72% 54%;
+      transition: transform .6s cubic-bezier(.2,.7,.2,1), filter .6s ease;
     }
-    .image-slot[data-tone="vegetariana"] {
-      background:
-        radial-gradient(circle at 28% 18%, rgba(255,236,170,.65), transparent 58%),
-        linear-gradient(140deg, #e9b34f 0%, #d2762a 100%);
-    }
-    .image-slot::before, .image-slot::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
-    .image-slot::before { width: 62%; aspect-ratio: 1; background: rgba(255,255,255,.07); box-shadow: 0 0 0 clamp(18px, 2.4vw, 32px) rgba(255,255,255,.045); }
-    .image-slot::after { width: 100%; aspect-ratio: 1; background: radial-gradient(circle, transparent 55%, rgba(63,23,14,.14) 100%); }
-    .image-slot svg { position: relative; z-index: 1; width: 52px; height: 52px; filter: drop-shadow(0 8px 14px rgba(63,23,14,.22)); }
-    .image-slot svg { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
-    .menu-card:hover .image-slot svg { transform: scale(1.1) rotate(-6deg); }
-    .image-slot img { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
-    .menu-card:hover .image-slot img { transform: scale(1.06); }
+    .menu-card:nth-child(even) .image-slot img { right: -9%; transform: rotate(7deg); transform-origin: 32% 56%; }
+    .menu-card:hover .image-slot img { filter: drop-shadow(0 28px 20px rgba(63, 23, 14, .28)); transform: rotate(-4deg) scale(1.06); }
+    .menu-card:nth-child(even):hover .image-slot img { transform: rotate(3deg) scale(1.06); }
     .card-content { padding: 14px 24px 26px; }
     .card-meta { display: flex; margin-bottom: 10px; align-items: center; justify-content: space-between; gap: 12px; }
     .card-category { color: var(--orange-700); font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
@@ -799,12 +790,12 @@
           <button class="filter-button" type="button" data-filter="vegetariana" aria-pressed="false">Vegetarianas</button>
         </div>
         <div class="menu-grid">
-          <article class="menu-card" data-category="classica"><div class="image-slot" data-tone="classica"><img src="assets/menu/margherita.webp" width="900" height="900" alt="Pizza Margherita com muçarela e manjericão" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Clássica</span><span class="price">R$ 48</span></div><h3>Margherita</h3><p>Molho de tomates, muçarela fresca, manjericão e azeite extravirgem.</p></div></article>
-          <article class="menu-card" data-category="classica"><div class="image-slot" data-tone="classica"><img src="assets/menu/calabresa.webp" width="900" height="900" alt="Pizza de calabresa artesanal com cebola roxa" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Clássica</span><span class="price">R$ 52</span></div><h3>Calabresa artesanal</h3><p>Calabresa curada, cebola roxa, muçarela e toque de orégano fresco.</p></div></article>
-          <article class="menu-card" data-category="especial"><div class="image-slot" data-tone="especial"><img src="assets/menu/quatro-queijos.webp" width="900" height="900" alt="Pizza quatro queijos dourada" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Especial</span><span class="price">R$ 58</span></div><h3>Quatro queijos</h3><p>Muçarela, provolone, parmesão e gorgonzola em equilíbrio cremoso.</p></div></article>
-          <article class="menu-card" data-category="especial"><div class="image-slot" data-tone="especial"><img src="assets/menu/parma-rucula.webp" width="900" height="900" alt="Pizza de Parma e rúcula" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Especial</span><span class="price">R$ 64</span></div><h3>Parma e rúcula</h3><p>Presunto de Parma, rúcula fresca, parmesão e redução balsâmica.</p></div></article>
-          <article class="menu-card" data-category="vegetariana"><div class="image-slot" data-tone="vegetariana"><img src="assets/menu/mediterranea.webp" width="900" height="900" alt="Pizza mediterrânea com tomate, azeitona e abobrinha" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Vegetariana</span><span class="price">R$ 56</span></div><h3>Mediterrânea</h3><p>Tomate-cereja, azeitonas, abobrinha, muçarela e ervas frescas.</p></div></article>
-          <article class="menu-card" data-category="vegetariana"><div class="image-slot" data-tone="vegetariana"><img src="assets/menu/cogumelos.webp" width="900" height="900" alt="Pizza de cogumelos com alho confitado" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Vegetariana</span><span class="price">R$ 60</span></div><h3>Cogumelos</h3><p>Mix de cogumelos, alho confitado, muçarela e folhas de tomilho.</p></div></article>
+          <article class="menu-card" data-category="classica"><div class="image-slot"><img src="assets/menu/margherita-float.webp" width="1100" height="733" alt="Pizza Margherita com muçarela e manjericão" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Clássica</span><span class="price">R$ 48</span></div><h3>Margherita</h3><p>Molho de tomates, muçarela fresca, manjericão e azeite extravirgem.</p></div></article>
+          <article class="menu-card" data-category="classica"><div class="image-slot"><img src="assets/menu/calabresa-float.webp" width="1100" height="733" alt="Pizza de calabresa artesanal com cebola roxa" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Clássica</span><span class="price">R$ 52</span></div><h3>Calabresa artesanal</h3><p>Calabresa curada, cebola roxa, muçarela e toque de orégano fresco.</p></div></article>
+          <article class="menu-card" data-category="especial"><div class="image-slot"><img src="assets/menu/quatro-queijos-float.webp" width="1100" height="733" alt="Pizza quatro queijos dourada" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Especial</span><span class="price">R$ 58</span></div><h3>Quatro queijos</h3><p>Muçarela, provolone, parmesão e gorgonzola em equilíbrio cremoso.</p></div></article>
+          <article class="menu-card" data-category="especial"><div class="image-slot"><img src="assets/menu/parma-rucula-float.webp" width="1100" height="733" alt="Pizza de Parma e rúcula" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Especial</span><span class="price">R$ 64</span></div><h3>Parma e rúcula</h3><p>Presunto de Parma, rúcula fresca, parmesão e redução balsâmica.</p></div></article>
+          <article class="menu-card" data-category="vegetariana"><div class="image-slot"><img src="assets/menu/mediterranea-float.webp" width="1100" height="733" alt="Pizza mediterrânea com tomate, azeitona e abobrinha" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Vegetariana</span><span class="price">R$ 56</span></div><h3>Mediterrânea</h3><p>Tomate-cereja, azeitonas, abobrinha, muçarela e ervas frescas.</p></div></article>
+          <article class="menu-card" data-category="vegetariana"><div class="image-slot"><img src="assets/menu/cogumelos-float.webp" width="1100" height="733" alt="Pizza de cogumelos com alho confitado" loading="lazy" decoding="async"></div><div class="card-content"><div class="card-meta"><span class="card-category">Vegetariana</span><span class="price">R$ 60</span></div><h3>Cogumelos</h3><p>Mix de cogumelos, alho confitado, muçarela e folhas de tomilho.</p></div></article>
         </div>
       </div>
     </section>
